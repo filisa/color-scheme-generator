@@ -10,7 +10,10 @@
 	<body>
 		<main>
 			<header id="header" class="header">
-				<form>
+				<form
+					id="choose-color-and-scheme-form"
+					class="choose-color-and-scheme-form"
+				>
 					<label for="choose-color"></label>
 					<input id="choose-color" name="choose-color" type="color" required />
 					<label for="choose-scheme"></label>
@@ -28,7 +31,9 @@
 						<option value="triad">Triad</option>
 						<option value="quad">Quad</option>
 					</select>
-					<button type="submit">Get color scheme</button>
+					<button class="submit-button" id="submit-button" type="submit">
+						Get color scheme
+					</button>
 				</form>
 			</header>
 			<article class="colors-container" id="colors-container">

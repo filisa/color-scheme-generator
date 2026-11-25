@@ -1,0 +1,20 @@
+#main {
+	height: 1000px;
+	background-color: rgb(101, 139, 173);
+	display: flex;
+}
+#onediv {
+	height: 500px;
+	width: 100px;
+	background-color: aliceblue;
+}
+
+#thirddiv {
+	height: 500px;
+	width: 100px;
+}
+
+#seconddiv {
+	height: 500px;
+	width: 100px;
+}

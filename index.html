@@ -7,5 +7,47 @@
 		<link rel="stylesheet" href="styles.css" />
 		<script src="script.js" defer></script>
 	</head>
-	<body></body>
+	<body>
+		<main>
+			<header id="header" class="header">
+				<form>
+					<label for="choose-color"></label>
+					<input id="choose-color" name="choose-color" type="color" required />
+					<label for="choose-scheme"></label>
+					<select
+						placeholder="Monochrome"
+						id="choose-scheme"
+						name="choose-scheme"
+					>
+						<option value="monochrome" selected>Monochrome</option>
+						<option value="monochrome-dark">Monochrome-dark</option>
+						<option value="monochrome-light">Monochrome-light</option>
+						<option value="analogic">Analogic</option>
+						<option value="complement">Complement</option>
+						<option value="analogic-complement">Analogic-complement</option>
+						<option value="triad">Triad</option>
+						<option value="quad">Quad</option>
+					</select>
+					<button type="submit">Get color scheme</button>
+				</form>
+			</header>
+			<article class="colors-container" id="colors-container">
+				<div id="first-color" class="color-div">
+					<p class="color-code" id="first-color-code"></p>
+				</div>
+				<div id="second-color" class="color-div">
+					<p class="color-code" id="second-color-code"></p>
+				</div>
+				<div id="third-color" class="color-div">
+					<p class="color-code" id="third-color-code"></p>
+				</div>
+				<div id="fourth-color" class="color-div">
+					<p class="color-code" id="fourth-color-code"></p>
+				</div>
+				<div id="fifth-color" class="color-div">
+					<p class="color-code" id="fifth-color-code"></p>
+				</div>
+			</article>
+		</main>
+	</body>
 </html>

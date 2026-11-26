@@ -76,7 +76,7 @@ body {
 	display: flex;
 	font-size: 1rem;
 	color: var(--text-color);
-	font: var(--base-font);
+	font-family: var(--base-font);
 	align-items: center;
 	background-color: var(--background-color);
 	height: 6vw;
@@ -115,11 +115,12 @@ select::picker-icon {
 	height: fit-content;
 	padding: 2vw;
 	border-radius: 30px;
-	font: var(--base-font);
+	font-family: var(--base-font);
 	font-size: 1.5rem;
 	width: 80%;
 	text-align: center;
 	position: absolute;
+	top: 20%;
 	left: 10%;
 }
 
@@ -128,11 +129,12 @@ select::picker-icon {
 	height: fit-content;
 	padding: 2vw;
 	border-radius: 30px;
-	font: var(--base-font);
+	font-family: var(--base-font);
 	font-size: 1.5rem;
 	width: 80%;
 	text-align: center;
 	position: absolute;
+	top: 20%;
 	left: 10%;
 }
 

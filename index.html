@@ -10,6 +10,8 @@
 	<body>
 		<main>
 			<header id="header" class="header">
+				<p id="loading-message" role="status"></p>
+				<p id="error-message" role="alert"></p>
 				<form
 					id="choose-color-and-scheme-form"
 					class="choose-color-and-scheme-form"
@@ -19,7 +21,7 @@
 					>
 					<input id="choose-color" name="choose-color" type="color" required />
 					<label class="visually-hidden" for="choose-scheme"
-						>Tap to choose the colors pallete</label
+						>Choose a color scheme</label
 					>
 					<select
 						placeholder="Monochrome"
@@ -35,13 +37,8 @@
 						<option value="triad">Triad</option>
 						<option value="quad">Quad</option>
 					</select>
-					<button
-						aria-label="Get the color pallette"
-						class="submit-button"
-						id="submit-button"
-						type="submit"
-					>
-						Get color scheme
+					<button class="submit-button" id="submit-button" type="submit">
+						Select a color scheme
 					</button>
 				</form>
 			</header>

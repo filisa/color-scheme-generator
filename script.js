@@ -3,6 +3,14 @@ let selectedColor = document.getElementById("choose-color");
 const form = document.getElementById("choose-color-and-scheme-form");
 const select = document.getElementById("choose-scheme");
 let isLoading = false;
+let lastGeneratedColor = null;
+
+const initialColor = () => {
+	let a = Math.floor(Math.random() * 0x1000000);
+	let b = a.toString(16);
+	let hex = b.padStart(6, "0");
+	return hex;
+};
 
 async function fetchColors(color, scheme) {
 	try {
@@ -10,11 +18,12 @@ async function fetchColors(color, scheme) {
 			`https://www.thecolorapi.com/scheme?hex=${color}&mode=${scheme}&count=5`
 		);
 		if (!response.ok) {
-			throw new Error("error! code" + response.status);
+			throw new Error("Something went wrong, please try again");
 		}
 		hideErrorMessage();
 		const data = await response.json();
 		addColorsToDivs(data);
+		lastGeneratedColor = color;
 	} catch (error) {
 		renderErrorMessage(error);
 		console.log(error);
@@ -61,6 +70,18 @@ function addColorsToDivs(data) {
 
 form.addEventListener("submit", async function (e) {
 	e.preventDefault();
+	let color = selectedColor.value.slice(1);
+	if (color === lastGeneratedColor) return;
+	await generatePalette(color);
+});
+
+window.addEventListener("load", async function () {
+	const color = initialColor();
+	selectedColor.value = `#${color}`;
+	await generatePalette(color);
+});
+
+async function generatePalette(color) {
 	hideErrorMessage();
 	if (isLoading) return;
 	isLoading = true;
@@ -68,7 +89,6 @@ form.addEventListener("submit", async function (e) {
 	button.disabled = true;
 	button.classList.add("disabled");
 	renderLoader();
-	const color = selectedColor.value.slice(1);
 	const scheme = select.value;
 	try {
 		await fetchColors(color, scheme);
@@ -78,4 +98,4 @@ form.addEventListener("submit", async function (e) {
 		hideLoader();
 		button.classList.remove("disabled");
 	}
-});
+}

@@ -12,6 +12,7 @@ async function fetchColors(color, scheme) {
 		if (!response.ok) {
 			throw new Error("error! code" + response.status);
 		}
+		hideErrorMessage();
 		const data = await response.json();
 		addColorsToDivs(data);
 	} catch (error) {
@@ -21,33 +22,37 @@ async function fetchColors(color, scheme) {
 }
 
 function renderLoader() {
-	const header = document.querySelector("#header");
-	const loadingMessage = document.createElement("p");
+	const loadingMessage = document.getElementById("loading-message");
 	loadingMessage.textContent = "Loading...";
 	loadingMessage.classList.add("loading-message");
-	header.appendChild(loadingMessage);
 }
 
 function hideLoader() {
-	document
-		.querySelector("#header")
-		.removeChild(document.querySelector(".loading-message"));
+	const loadingMessage = document.getElementById("loading-message");
+	loadingMessage.textContent = "";
+	loadingMessage.classList.remove("loading-message");
 }
 function renderErrorMessage(error) {
-	const header = document.querySelector("#header");
-	const errorMessage = document.createElement("p");
+	const errorMessage = document.getElementById("error-message");
 	errorMessage.textContent = `Something went wrong, try again. ${error} `;
 	errorMessage.classList.add("error-message");
-	header.appendChild(errorMessage);
-	setTimeout(function () {
-		header.removeChild(errorMessage);
-	}, 800);
+}
+
+function hideErrorMessage() {
+	const errorMessage = document.getElementById("error-message");
+	errorMessage.classList.remove("error-message");
+	errorMessage.textContent = "";
 }
 function addColorsToDivs(data) {
 	let colorDiv = "";
 	for (let i = 0; i < 5; i++) {
-		let color = data.colors[i].hex.value;
-		colorDiv += `<div style="background-color:${color};" id="${color}" class="color-div">
+		const color = data.colors[i].hex.value;
+		//check that we got a valid hex number from the API
+		if (!/^#[0-9a-f]{6}$/i.test(color)) {
+			throw new Error("The API returned an invalid color");
+		}
+
+		colorDiv += `<div style="background-color:${color};" class="color-div">
         <p class="color-code">${color}</p>
         </div>`;
 	}
@@ -56,11 +61,12 @@ function addColorsToDivs(data) {
 
 form.addEventListener("submit", async function (e) {
 	e.preventDefault();
+	hideErrorMessage();
 	if (isLoading) return;
 	isLoading = true;
 	const button = document.querySelector("#submit-button");
 	button.disabled = true;
-	button.classList.toggle("disabled");
+	button.classList.add("disabled");
 	renderLoader();
 	const color = selectedColor.value.slice(1);
 	const scheme = select.value;

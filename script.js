@@ -4,6 +4,37 @@ const form = document.getElementById("choose-color-and-scheme-form");
 const select = document.getElementById("choose-scheme");
 let isLoading = false;
 
+const initialColor = () => {
+	let a = Math.random() * 100000000;
+	let b = Math.round(a);
+	let initialColor = b.toString(16).slice(1);
+	if (initialColor.length < 6) {
+		initialColor = initialColor + 1;
+	}
+	return initialColor;
+};
+
+window.addEventListener("load", async function (event) {
+	event.preventDefault();
+	hideErrorMessage();
+	if (isLoading) return;
+	isLoading = true;
+	const button = document.querySelector("#submit-button");
+	button.disabled = true;
+	button.classList.add("disabled");
+	renderLoader();
+	const color = initialColor();
+	const scheme = select.value;
+	try {
+		await fetchColors(color, scheme);
+	} finally {
+		isLoading = false;
+		button.disabled = false;
+		hideLoader();
+		button.classList.remove("disabled");
+	}
+});
+
 async function fetchColors(color, scheme) {
 	try {
 		const response = await fetch(

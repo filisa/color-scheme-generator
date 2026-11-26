@@ -105,7 +105,12 @@ select,
 	position-area: bottom;
 	position-try-fallbacks: none;
 	color: var(--text-color);
-	font-size: 1.4rem;
+	font-size: 1.3rem;
+	padding: 2vw;
+	option {
+		gap: 20px;
+		padding: 10px;
+	}
 }
 select::picker-icon {
 	color: #f3efef;
